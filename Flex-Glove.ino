@@ -1,63 +1,63 @@
-//First state your flex sensor and LEDs as constant intergers,
-//as they will be continues.
-const int flex1 = A0;
-const int flex2 = A1;
-const int flex3 = A2;
-const int flex4 = A3;
-const int led1 = 5;
-const int led2 = 6;
-const int led3 = 7;
-const int led4 = 8;
-const int led5 = 9;
-const int led6 = 10;
-const int led7 = 11;
-const int led8 = 12;
 
-void setup() {
-// Set each LEDs to output
-//pinMode(led1, OUTPUT);
-//pinMode(led2, OUTPUT);
-//pinMode(led3, OUTPUT);
-//pinMode(led4, OUTPUT);
-//pinMode(led5, OUTPUT);
-//pinMode(led6, OUTPUT);
-//pinMode(led7, OUTPUT);
-//pinMode(led8, OUTPUT);
-Serial.begin(9600);
-}
+//Constants:
+//const int ledPin = 5;   //pins as PWM funtion
+const int ledPin2 = 3;
+//const int ledPin3 = 7;
+//const int ledPin4 = 8;
+const int ledPin5 = 9;
+const int ledPin6 = 10;
+const int ledPin7 = 11;
+//const int ledPin8 = 12;
+const int flexPin = A0; //pin A0-A3 to read analog input
+const int flexPin2 = A1;
+const int flexPin3 = A2;
+const int flexPin4 = A3;
 
-void loop() {
-  // put your main code here, to run repeatedly:
-//State the value of the sensors
-  int flexval1 = analogRead(flex1);
-  int flexval2 = analogRead(flex2);
-  int flexval3 = analogRead(flex3);
-  int flexval4 = analogRead(flex4);
-//State the value of the LEDs as the range of the sensors
-  int pinval1 = map(flexval1, 0, 1023, 0, 255);
-  int pinval2 = map(flexval1, 0, 1023, 0, 255);
-  int pinval3 = map(flexval2, 0, 1023, 0, 255);
-  int pinval4 = map(flexval2, 0, 1023, 0, 255);
-  int pinval5 = map(flexval3, 0, 1023, 0, 255);
-  int pinval6 = map(flexval3, 0, 1023, 0, 255);
-  int pinval7 = map(flexval4, 0, 1023, 0, 255);
-  int pinval8 = map(flexval4, 0, 1023, 0, 255);
-//Make the values of the sensor as the LEDs
-  analogWrite(led1, pinval1);
-  analogWrite(led2, pinval2);
-  analogWrite(led3, pinval3);
-  analogWrite(led4, pinval4);
-  analogWrite(led5, pinval5);
-  analogWrite(led6, pinval6);
-  analogWrite(led7, pinval7);
-  analogWrite(led8, pinval8);
+//Variables:
+int value; //save analog value
+int value2;
+int value3;
+int value4;
 
-//Test the code to see if it works
-  Serial.print("sensor = ");
-  Serial.print(flexval1);
-  Serial.print("\t output = ");
-  Serial.println(pinval1);
+
+void setup(){
   
-  delay(2);
+  //pinMode(ledPin, OUTPUT);  //Set pins as 'output'
+  pinMode(ledPin2, OUTPUT);
+  //pinMode(ledPin3, OUTPUT);
+  //pinMode(ledPin4, OUTPUT);
+  pinMode(ledPin5, OUTPUT);
+  pinMode(ledPin6, OUTPUT);
+  pinMode(ledPin7, OUTPUT);
+  //pinMode(ledPin8, OUTPUT);
+  Serial.begin(9600);       //Begin serial communication
 
 }
+
+void loop(){
+  
+  value = analogRead(flexPin);         //Read and save analog value from flex sensors
+  Serial.println(value);               //Print value
+    value = map(value, 700, 900, 0, 255);//Map value 700-900 to 0-255 (PWM)
+  //analogWrite(ledPin, value);         
+  analogWrite(ledPin2, value);          //Send PWM value to led
+  value2 = analogRead(flexPin2);
+  Serial.println(value2);
+  value2 = map(value2, 700, 900, 0, 255);
+  //analogWrite(ledPin3, value2);
+  analogWrite(ledPin5, value2);
+  value3 = analogRead(flexPin3);
+  Serial.println(value3);
+  value3 = map(value3, 700, 900, 0, 255);
+  //analogWrite(ledPin5, value3);
+  analogWrite(ledPin6, value3);
+  value4 = analogRead(flexPin4);
+  Serial.println(value4);
+  value4 = map(value4, 700, 900, 0, 255);
+  analogWrite(ledPin7, value4);
+  //analogWrite(ledPin8, value4);
+  
+  delay(100);                          //Small delay
+  
+}
+
